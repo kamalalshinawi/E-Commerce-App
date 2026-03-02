@@ -1,11 +1,11 @@
-import { StyleSheet, Text, TextStyle, TextProps } from "react-native";
+import { StyleSheet, Text, TextStyle, TextProps,StyleProp } from "react-native";
 import React, { ReactNode, FC } from "react";
 import { s } from "react-native-size-matters";
 import { AppColors } from "../../styles/colors";
 
 interface AppTextProps extends TextProps {
   children: ReactNode;
-  style?: TextStyle | TextStyle[];
+  style?: StyleProp<TextStyle>;
   variant?: "medium" | "bold";
 }
 
