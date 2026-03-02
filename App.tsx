@@ -4,25 +4,17 @@ import AppSafeView from "./src/components/views/AppSafeView";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import AppButton from "./src/components/buttons/AppButton";
+import AppTextInput from "./src/components/inputs/AppTextInput";
 export default function App() {
   return (
     <SafeAreaProvider>
-      <FlashMessage position="top" />
+      
       <AppSafeView>
-        <AppButton
-          onPress={() =>
-            showMessage({
-              message: "Hello $$",
-              color: "yellow",
-              type: "success",
-            })
-          }
-          disabled={false}
-          title={"Hello World"}
+        <AppTextInput 
+        placeholder='username'
+
         
         />
-
-        <AppText variant="bold">Hello World</AppText>
       </AppSafeView>
     </SafeAreaProvider>
   );
