@@ -5,18 +5,10 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import AppButton from "./src/components/buttons/AppButton";
 import AppTextInput from "./src/components/inputs/AppTextInput";
+import SignInScreen from "./src/screens/auth/SignInScreen";
 export default function App() {
   return (
-    <SafeAreaProvider>
-      
-      <AppSafeView>
-        <AppTextInput 
-        placeholder='username'
-
-        
-        />
-      </AppSafeView>
-    </SafeAreaProvider>
+   <SignInScreen />
   );
 }
 

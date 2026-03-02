@@ -13,7 +13,7 @@ import { AppColors } from "../../styles/colors";
 
 interface AppButtonProps {
   onPress: () => void;
-  backgroundColor?: string;
+  TextColor?: string;
   backgroundOpacity?: string;
   disabled?: boolean;
   title: string;
@@ -25,7 +25,7 @@ interface AppButtonProps {
 const AppButton: FC<AppButtonProps> = ({
   onPress,
   title,
-  backgroundColor = AppColors.white,
+  TextColor = AppColors.white,
   backgroundOpacity = AppColors.black,
   disabled = false,
   style,
@@ -40,7 +40,7 @@ const AppButton: FC<AppButtonProps> = ({
     >
       <AppText
         variant="bold"
-        style={[styles.textTitle, { color: backgroundColor }, styleTitle]}
+        style={[styles.textTitle, { color: TextColor }, styleTitle]}
       >
         {title}
       </AppText>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     height: vs(40),
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: s(8),
+    borderRadius: s(25),
     alignSelf: "center",
   },
   textTitle: {
