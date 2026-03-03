@@ -10,8 +10,6 @@ import AppButton from "../../components/buttons/AppButton";
 import { AppColors } from "../../styles/colors";
 import { useNavigation } from "@react-navigation/native";
 
-
-
 const SignInScreen = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -28,7 +26,10 @@ const SignInScreen = () => {
       />
 
       <AppText style={styles.appName}> Smart E-Commerce</AppText>
-      <AppButton title="Login" />
+      <AppButton
+        title="Login"
+        onPress={() => navigation.navigate("MainAppBottomTab")}
+      />
       <AppButton
         title="Sign Up"
         style={styles.SignUpbutton}
