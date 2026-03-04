@@ -1,16 +1,28 @@
 import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { FC } from "react";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../../styles/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { AppFonts } from "../../styles/fonts";
 import { commonStyles } from "../../styles/sharedStyles";
 
-const ProductCard = () => {
+interface IProductCardProps {
+  onPress: () => void;
+  ImageUrl: string;
+  title: string;
+  price: number;
+}
+
+const ProductCard: FC<IProductCardProps> = ({
+  onPress,
+  ImageUrl,
+  title,
+  price,
+}) => {
   return (
     <View style={styles.container}>
       {/* Add Cart Button */}
-      <TouchableOpacity style={styles.addCartButton}>
+      <TouchableOpacity style={styles.addCartButton} onPress={onPress}>
         <Ionicons name="cart" size={s(15)} color={AppColors.white} />
       </TouchableOpacity>
       {/* Image Product */}
@@ -18,15 +30,15 @@ const ProductCard = () => {
         <Image
           style={styles.imageStyle}
           source={{
-            uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7ABYbwEJlt2zHvi_qsMwYgicq-2oTNuvobg&s",
+            uri: ImageUrl,
           }}
         />
       </View>
 
       {/* Details */}
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>Iphone-17</Text>
-        <Text style={styles.price}>1000 $</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.price}>{price} $</Text>
       </View>
     </View>
   );
