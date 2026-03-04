@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: AppColors.primary,
+    paddingBottom: vs(10),
   },
   headerLogo: {
     width: s(40),
