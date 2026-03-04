@@ -2,16 +2,17 @@ import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { s, vs } from "react-native-size-matters";
 import { AppColors } from "../../styles/colors";
-import {Ionicons} from "@expo/vector-icons"
+import { Ionicons } from "@expo/vector-icons";
 import { AppFonts } from "../../styles/fonts";
+import { commonStyles } from "../../styles/sharedStyles";
 
 const ProductCard = () => {
   return (
     <View style={styles.container}>
-        {/* Add Cart Button */}
-        <TouchableOpacity style={styles.addCartButton}>
-            <Ionicons name="cart" size={s(15)} color={AppColors.white} />
-        </TouchableOpacity>
+      {/* Add Cart Button */}
+      <TouchableOpacity style={styles.addCartButton}>
+        <Ionicons name="cart" size={s(15)} color={AppColors.white} />
+      </TouchableOpacity>
       {/* Image Product */}
       <View style={styles.imageContainer}>
         <Image
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     height: vs(190),
     backgroundColor: AppColors.white,
     borderRadius: s(10),
-    borderWidth: 1,
+    ...commonStyles.shadow,
   },
   imageContainer: {
     height: vs(130),
@@ -68,16 +69,16 @@ const styles = StyleSheet.create({
     fontFamily: AppFonts.Bold,
     color: AppColors.primary,
   },
-  addCartButton:{
+  addCartButton: {
     height: s(28),
     width: s(28),
     borderRadius: s(14),
     backgroundColor: AppColors.primary,
-    position:"absolute",
-    top:vs(5),
-    left:s(5),
-    alignItems:"center",
-    justifyContent:"center",
-    zIndex:1,
-  }
+    position: "absolute",
+    top: vs(5),
+    left: s(5),
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 1,
+  },
 });
