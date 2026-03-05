@@ -2,6 +2,7 @@ import { StyleSheet, View } from "react-native";
 import React, { FC } from "react";
 import { s, vs } from "react-native-size-matters";
 import AppText from "../texts/AppText";
+import { Taxes, ShippingFees } from "../../constants/constants";
 
 import { AppColors } from "../../styles/colors";
 
@@ -19,11 +20,11 @@ const TotalView: FC<TotalViewProps> = ({ itemPrice, orderTotal }) => {
       </View>
       <View style={styles.row}>
         <AppText style={styles.itemTitle}>Taxes</AppText>
-        <AppText style={styles.itemPrice}>$100</AppText>
+        <AppText style={styles.itemPrice}>${Taxes}</AppText>
       </View>
       <View style={styles.row}>
         <AppText style={styles.itemTitle}>Shipping Fees</AppText>
-        <AppText style={styles.itemPrice}>$100</AppText>
+        <AppText style={styles.itemPrice}>${ShippingFees}</AppText>
       </View>
 
       <View style={styles.separator} />
