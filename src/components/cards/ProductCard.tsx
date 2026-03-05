@@ -7,14 +7,14 @@ import { AppFonts } from "../../styles/fonts";
 import { commonStyles } from "../../styles/sharedStyles";
 
 interface IProductCardProps {
-  onPress: () => void;
+  onAddToCartPress: () => void;
   ImageUrl: string;
   title: string;
   price: number;
 }
 
 const ProductCard: FC<IProductCardProps> = ({
-  onPress,
+  onAddToCartPress,
   ImageUrl,
   title,
   price,
@@ -22,7 +22,7 @@ const ProductCard: FC<IProductCardProps> = ({
   return (
     <View style={styles.container}>
       {/* Add Cart Button */}
-      <TouchableOpacity style={styles.addCartButton} onPress={onPress}>
+      <TouchableOpacity style={styles.addCartButton} onPress={onAddToCartPress}>
         <Ionicons name="cart" size={s(15)} color={AppColors.white} />
       </TouchableOpacity>
       {/* Image Product */}

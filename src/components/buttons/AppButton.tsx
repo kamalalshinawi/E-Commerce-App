@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   ViewStyle,
   TextStyle,
-  TextStyleAndroid,
 } from "react-native";
 import React, { FC } from "react";
 import { s, vs } from "react-native-size-matters";
