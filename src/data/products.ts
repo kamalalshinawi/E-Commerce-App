@@ -25,7 +25,7 @@ export const products = [
     price: 1299,
     title: "Samsung Phone",
     imageURL:
-    ""
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZrYJgnXaXV3E8BXpdBJmPOZ3M0fartiP_FA&s"
   },
   {
     id: 5,
