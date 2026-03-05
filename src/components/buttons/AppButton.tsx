@@ -11,7 +11,7 @@ import AppText from "../texts/AppText";
 import { AppColors } from "../../styles/colors";
 
 interface AppButtonProps {
-  onPress: () => void;
+  onPress?: () => void;
   TextColor?: string;
   backgroundOpacity?: string;
   disabled?: boolean;

@@ -9,17 +9,17 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 interface CartItemProps {
   title: string;
   price: string | number;
-  imageUrl: string;
-  qty: number;
-  onPressPlus: () => void;
-  onPressMinus: () => void;
-  onPressDelete: () => void;
+  imageURL: string;
+  qty?: number;
+  onPressPlus?: () => void;
+  onPressMinus?: () => void;
+  onPressDelete?: () => void;
 }
 
 const CartItem: FC<CartItemProps> = ({
   title,
   price,
-  imageUrl,
+  imageURL,
   qty,
   onPressPlus,
   onPressMinus,
@@ -31,7 +31,7 @@ const CartItem: FC<CartItemProps> = ({
       <View style={styles.imageContainer}>
         <Image
           source={{
-            uri: imageUrl,
+            uri: imageURL,
           }}
           style={styles.image}
         />
@@ -50,8 +50,9 @@ const CartItem: FC<CartItemProps> = ({
             <Entypo name="minus" size={s(12)} color={AppColors.primary} />
           </Pressable>
         </View>
+       
       </View>
-
+    
       {/* Delete Button Container */}
       <View style={styles.deleteContainer}>
         <Pressable style={styles.delButton} onPress={onPressDelete}>
@@ -146,5 +147,11 @@ const styles = StyleSheet.create({
     fontFamily: AppFonts.Bold,
     color: AppColors.primary,
     textAlign: "center",
+  },
+  separator: {
+    height: vs(1),
+    width: "100%",
+    backgroundColor: AppColors.blueGray,
+    marginVertical: vs(4),
   },
 });
