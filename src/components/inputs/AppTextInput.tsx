@@ -24,6 +24,7 @@ const AppTextInput: FC<AppTextInputProps> = ({
   secureTextEntry,
   keyboardType,
   style,
+
 }) => {
   return (
     <TextInput
@@ -33,6 +34,8 @@ const AppTextInput: FC<AppTextInputProps> = ({
       secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
       style={[styles.input, style]}
+      
+      
     ></TextInput>
   );
 };

@@ -10,8 +10,10 @@ import { products } from "../../data/products";
 
 import { s } from "react-native-size-matters";
 import AppButton from "../../components/buttons/AppButton";
+import { useNavigation } from "@react-navigation/native";
 
 const CartScreen = () => {
+  const navigation = useNavigation()
   return (
     <AppSafeView>
       <HomeHeader />
@@ -27,7 +29,9 @@ const CartScreen = () => {
         />
 
         <TotalView itemPrice={500} orderTotal={9000} />
-              <AppButton title="Continue" style={styles.button} />
+              <AppButton title="Continue" style={styles.button}
+              onPress={()=>navigation.navigate("CheckOutScreen")}
+              />
 
       </View>
     </AppSafeView>
