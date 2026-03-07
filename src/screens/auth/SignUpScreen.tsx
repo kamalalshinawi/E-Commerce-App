@@ -9,40 +9,77 @@ import AppText from "../../components/texts/AppText";
 import AppButton from "../../components/buttons/AppButton";
 import { AppColors } from "../../styles/colors";
 import { useNavigation } from "@react-navigation/native";
+import { useForm } from "react-hook-form";
+import AppTextInputController from "../../components/inputs/AppTextInputController";
 
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 const SignUpScreen = () => {
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const schema = yup
+    .object({
+      UserName: yup
+        .string()
+        .required("Must Enter The UserName")
+        .min(5, "User Name Must up to 5 "),
+      Email: yup
+        .string()
+        .required("Must enter Email")
+        .min(11, "Must Enter a valid Email"),
+      Password: yup
+        .string()
+        .required("Enter Your Password")
+        .min(8, "password Must up to 8 "),
+      conPassword: yup
+        .string()
+        .required("Enter Your Password")
+        .min(8, "password Must up to 8 ")
+        .oneOf([yup.ref("Password")], "Password Must Match "),
+    })
+    .required();
+  const { control, handleSubmit } = useForm({
+    resolver: yupResolver(schema),
+  });
   const navigation = useNavigation();
 
+  type formdata = yup.InferType<typeof schema>;
+
+  const formdata = (formdata: formdata) => {
+    navigation.navigate("MainAppBottomTab");
+  };
   return (
     <AppSafeView style={styles.container}>
       <Image source={IMAGES.appLogo} style={styles.logo} />
-      <AppTextInput
+      <AppTextInputController
         placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
+        name={"UserName"}
+        control={control}
+        KeyboardType={"default"}
       />
-      <AppTextInput placeholder="Email" value={Email} onChangeText={setEmail} />
+      <AppTextInputController
+        placeholder="Email"
+        name={"Email"}
+        control={control}
+        KeyboardType={"email-address"}
+      />
 
-      <AppTextInput
+      <AppTextInputController
         placeholder="Password"
-        value={Password}
-        onChangeText={setPassword}
+        name={"Password"}
+        control={control}
+        KeyboardType={"default"}
         secureTextEntry={true}
       />
 
-      <AppTextInput
-        placeholder="confirm Password"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
+      <AppTextInputController
+        placeholder="Confirm Password"
+        name={"conPassword"}
+        control={control}
+        KeyboardType={"default"}
         secureTextEntry={true}
       />
 
       <AppText style={styles.appName}> Smart E-Commerce</AppText>
-      <AppButton title="Create New Account" />
+      <AppButton title="Create New Account" onPress={handleSubmit(formdata)} />
       <AppButton
         title="Go To Sign In"
         style={styles.SignInButton}
