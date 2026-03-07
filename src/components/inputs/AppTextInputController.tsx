@@ -5,6 +5,9 @@ import AppTextInput from "./AppTextInput";
 import { AppColors } from "../../styles/colors";
 import AppText from "../texts/AppText";
 import { vs } from "react-native-size-matters";
+
+
+
 const AppTextInputController = ({
   control,
   name,
