@@ -11,28 +11,42 @@ import { products } from "../../data/products";
 import { s } from "react-native-size-matters";
 import AppButton from "../../components/buttons/AppButton";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { addItemToCart, deleteItemFromCart, deleteProductFromCart } from "../../store/reducers/CartSlice";
 
 const CartScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+  const { items } = useSelector((state: RootState) => state.cartSlice);
+  const dispatch = useDispatch();
   return (
     <AppSafeView>
       <HomeHeader />
       {/* <EmptyCart /> */}
       <View style={{ paddingHorizontal: s(5), flex: 1 }}>
         <FlatList
-          data={products}
+          data={items}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => {
-            return <CartItem {...item} />;
+            return (
+              <CartItem
+                {...item}
+                price={item.sum}
+                onPressMinus={() => dispatch(deleteItemFromCart(item))}
+                onPressDelete={() => dispatch(deleteProductFromCart(item))}
+                onPressPlus={()=> dispatch(addItemToCart(item))}
+              />
+            );
           }}
           showsVerticalScrollIndicator={false}
         />
 
         <TotalView itemPrice={500} orderTotal={9000} />
-              <AppButton title="Continue" style={styles.button}
-              onPress={()=>navigation.navigate("CheckOutScreen")}
-              />
-
+        <AppButton
+          title="Continue"
+          style={styles.button}
+          onPress={() => navigation.navigate("CheckOutScreen")}
+        />
       </View>
     </AppSafeView>
   );
