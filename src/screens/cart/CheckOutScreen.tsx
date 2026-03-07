@@ -7,22 +7,40 @@ import {
 } from "../../styles/sharedStyles";
 import { vs, s } from "react-native-size-matters";
 import { AppColors } from "../../styles/colors";
-import AppTextInput from "../../components/inputs/AppTextInput";
 import AppButton from "../../components/buttons/AppButton";
 import { isAndroid, isIos } from "../../constants/constants";
+import AppTextInputController from "../../components/inputs/AppTextInputController";
+import { useForm } from "react-hook-form";
 
 const CheckOutScreen = () => {
+  const { control, handleSubmit } = useForm();
+  const saveInfo = (formData) => {
+    console.log(formData);
+  }
   return (
     <AppSafeView>
       <View style={{ paddingHorizontal: SharedPaddingHorizontal, flex: 1 }}>
         <View style={styles.inputsContainer}>
-          <AppTextInput placeholder="Full Name" />
-          <AppTextInput placeholder="Phone number" keyboardType={"numeric"} />
-          <AppTextInput placeholder="Address " />
+          <AppTextInputController
+            control={control}
+            name={"Full Name"}
+            placeholder="Full Name"
+          />
+          <AppTextInputController
+            control={control}
+            name={"Phone Number"}
+            placeholder="Phone number"
+            KeyboardType={"numeric"}
+          />
+          <AppTextInputController
+            control={control}
+            name={"Address"}
+            placeholder="Address "
+          />
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <AppButton title="Confirm" />
+        <AppButton title="Confirm" onPress={handleSubmit(saveInfo)} />
       </View>
     </AppSafeView>
   );
