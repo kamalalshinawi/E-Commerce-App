@@ -12,29 +12,33 @@ import { isAndroid, isIos } from "../../constants/constants";
 import AppTextInputController from "../../components/inputs/AppTextInputController";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import {yupResolver} from "@hookform/resolvers/yup"
+import { yupResolver } from "@hookform/resolvers/yup";
 
-const schema = yup.object({
-  FullName: yup
-    .string()
-    .required("Name is Required")
-    .min(3, "Name Must Be at least 3 characters"),
-  PhoneNumber: yup
-    .string()
-    .required("Phone number is required")
-    .matches(/^[0-9]+$/, "Phone number must ne matched")
-    .min(10, "phone number must up 10"),
-  Address: yup
-    .string()
-    .required("Address must enter")
-    .min(9, "address must be detailed"),
-}).required();
+const schema = yup
+  .object({
+    FullName: yup
+      .string()
+      .required("Name is Required")
+      .min(3, "Name Must Be at least 3 characters"),
+    PhoneNumber: yup
+      .string()
+      .required("Phone number is required")
+      .matches(/^[0-9]+$/, "Phone number must ne matched")
+      .min(10, "phone number must up 10"),
+    Address: yup
+      .string()
+      .required("Address must enter")
+      .min(9, "address must be detailed"),
+  })
+  .required();
+
+type formdata = yup.InferType<typeof schema>;
 
 const CheckOutScreen = () => {
   const { control, handleSubmit } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
   });
-  const saveInfo = (formData) => {
+  const saveInfo = (formData: formdata) => {
     console.log(formData);
   };
   return (

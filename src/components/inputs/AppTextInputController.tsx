@@ -1,21 +1,28 @@
 import { StyleSheet } from "react-native";
 import React from "react";
-import { Controller } from "react-hook-form";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import AppTextInput from "./AppTextInput";
 import { AppColors } from "../../styles/colors";
 import AppText from "../texts/AppText";
 import { vs } from "react-native-size-matters";
 
+interface AppTextInputControllerProps<T extends FieldValues> {
+  control: Control<T>;
+  name: Path<T>;
+  rules?: object;
+  placeholder: string;
+  secureTextEntry?: boolean;
+  KeyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
+}
 
-
-const AppTextInputController = ({
+const AppTextInputController = <T extends FieldValues>({
   control,
   name,
   rules,
   placeholder,
   secureTextEntry,
   KeyboardType,
-}) => {
+}: AppTextInputControllerProps<T>) => {
   return (
     <Controller
       control={control}
