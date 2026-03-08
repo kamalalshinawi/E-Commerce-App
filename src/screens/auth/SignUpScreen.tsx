@@ -1,19 +1,20 @@
 import { StyleSheet, Image } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import AppSafeView from "../../components/views/AppSafeView";
 import { SharedPaddingHorizontal } from "../../styles/sharedStyles";
 import { IMAGES } from "../../constants/images-paths";
 import { s, vs } from "react-native-size-matters";
-import AppTextInput from "../../components/inputs/AppTextInput";
 import AppText from "../../components/texts/AppText";
 import AppButton from "../../components/buttons/AppButton";
 import { AppColors } from "../../styles/colors";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import AppTextInputController from "../../components/inputs/AppTextInputController";
-
+import FlashMessage, { showMessage } from "react-native-flash-message";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
 const SignUpScreen = () => {
   const schema = yup
     .object({
@@ -43,11 +44,39 @@ const SignUpScreen = () => {
 
   type formdata = yup.InferType<typeof schema>;
 
-  const formdata = (formdata: formdata) => {
-    navigation.navigate("MainAppBottomTab");
+  const createNewAccount = async (data: formdata) => {
+    try {
+      const Credential = await createUserWithEmailAndPassword(
+        auth,
+        data.Email,
+        data.Password,
+      );
+      navigation.navigate("MainAppBottomTab");
+    } catch (error: any) {
+      let errorMessage = "";
+      if (error.code === "auth/email-already-in-use") {
+        errorMessage = "This email is already registered";
+      } else if (error.code === "auth/invalid-email") {
+        errorMessage = "Invalid email address format";
+      } else if (error.code === "auth/weak-password") {
+        errorMessage = "Password must be at least 6 characters";
+      } else if (error.code === "auth/operation-not-allowed") {
+        errorMessage = "Email/password accounts are not enabled";
+      } else {
+        errorMessage = "SomeThing Wrong";
+      }
+      console.log(errorMessage)
+
+      // Alert.alert(errorMessage)
+       showMessage({
+        type: "danger",
+        message: errorMessage, });
+    }
   };
   return (
+   
     <AppSafeView style={styles.container}>
+  
       <Image source={IMAGES.appLogo} style={styles.logo} />
       <AppTextInputController
         placeholder="Username"
@@ -79,7 +108,10 @@ const SignUpScreen = () => {
       />
 
       <AppText style={styles.appName}> Smart E-Commerce</AppText>
-      <AppButton title="Create New Account" onPress={handleSubmit(formdata)} />
+      <AppButton
+        title="Create New Account"
+        onPress={handleSubmit(createNewAccount)}
+      />
       <AppButton
         title="Go To Sign In"
         style={styles.SignInButton}
@@ -87,6 +119,8 @@ const SignUpScreen = () => {
         onPress={() => navigation.navigate("SignIn")}
       />
     </AppSafeView>
+    
+    
   );
 };
 

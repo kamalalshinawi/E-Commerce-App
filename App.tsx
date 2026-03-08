@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import MainAppStack from "./src/navigation/MainAppStack";
 import { Provider } from "react-redux";
 import { store } from "./src/store/store";
+import FlashMessage from "react-native-flash-message";
 export default function App() {
   const [fontLoad] = useFonts({
     "nunito-Bold": require("./src/assets/fonts/Nunito-Bold.ttf"),
@@ -21,8 +22,11 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
+        
         <MainAppStack />
+        <FlashMessage position="top" />
       </NavigationContainer>
+      
     </Provider>
   );
 }

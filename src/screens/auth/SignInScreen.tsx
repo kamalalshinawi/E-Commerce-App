@@ -12,6 +12,9 @@ import AppTextInputController from "../../components/inputs/AppTextInputControll
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
+import FlashMessage, { showMessage } from "react-native-flash-message";
 const SignInScreen = () => {
   const schema = yup
     .object({
@@ -32,12 +35,36 @@ const SignInScreen = () => {
   });
 
   type formdata = yup.InferType<typeof schema>;
-  const loginUser = (formdata: formdata) => {
-    navigation.navigate("MainAppBottomTab");
+
+  const loginUser = async (data: formdata) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        data.Email,
+        data.Password,
+      );
+      navigation.navigate("MainAppBottomTab");
+    } catch (error: any) {
+      let errorMessage = "";
+      if (error.code === "auth/user-not-found") {
+        errorMessage = "User Not Found";
+      } else if (error.code === "auth/invalid-credential") {
+        errorMessage = "Wrong Email or Password";
+      } else {
+        errorMessage = "SomeThing Wrong ";
+      }
+
+      
+      showMessage({
+        type: "danger",
+        message: errorMessage,
+      });
+    }
   };
 
   return (
     <AppSafeView style={styles.container}>
+     
       <Image source={IMAGES.appLogo} style={styles.logo} />
       <AppTextInputController
         control={control}
