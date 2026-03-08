@@ -10,11 +10,13 @@ import { AppColors } from "../../styles/colors";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import AppTextInputController from "../../components/inputs/AppTextInputController";
-import FlashMessage, { showMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
+import { useDispatch } from "react-redux";
+import { getUserData } from "../../store/reducers/UserSlice";
 const SignUpScreen = () => {
   const schema = yup
     .object({
@@ -43,15 +45,17 @@ const SignUpScreen = () => {
   const navigation = useNavigation();
 
   type formdata = yup.InferType<typeof schema>;
-
+  const dispatch = useDispatch()
   const createNewAccount = async (data: formdata) => {
     try {
-      const Credential = await createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         data.Email,
         data.Password,
       );
       navigation.navigate("MainAppBottomTab");
+      dispatch(getUserData(userCredential))
+
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/email-already-in-use") {

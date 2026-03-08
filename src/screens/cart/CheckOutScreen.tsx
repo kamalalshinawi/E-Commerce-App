@@ -13,6 +13,8 @@ import AppTextInputController from "../../components/inputs/AppTextInputControll
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const schema = yup
   .object({
@@ -33,6 +35,8 @@ const schema = yup
   .required();
 
 type formdata = yup.InferType<typeof schema>;
+
+const {userData} = useSelector((state:RootState)=> state.UserSlice)
 
 const CheckOutScreen = () => {
   const { control, handleSubmit } = useForm({

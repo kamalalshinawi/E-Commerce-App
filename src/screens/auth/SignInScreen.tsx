@@ -14,7 +14,10 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
-import FlashMessage, { showMessage } from "react-native-flash-message";
+import  { showMessage } from "react-native-flash-message";
+import { useDispatch } from "react-redux";
+import { getUserData } from "../../store/reducers/UserSlice";
+
 const SignInScreen = () => {
   const schema = yup
     .object({
@@ -33,7 +36,7 @@ const SignInScreen = () => {
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(schema),
   });
-
+ const dispatch = useDispatch()
   type formdata = yup.InferType<typeof schema>;
 
   const loginUser = async (data: formdata) => {
@@ -44,6 +47,7 @@ const SignInScreen = () => {
         data.Password,
       );
       navigation.navigate("MainAppBottomTab");
+      dispatch(getUserData(userCredential.user))
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/user-not-found") {
