@@ -47,7 +47,12 @@ const SignInScreen = () => {
         data.Password,
       );
       navigation.navigate("MainAppBottomTab");
-      dispatch(getUserData(userCredential.user))
+
+      const userDataObj = {
+        uid: userCredential.user.uid
+      }
+
+      dispatch(getUserData(userDataObj))
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/user-not-found") {

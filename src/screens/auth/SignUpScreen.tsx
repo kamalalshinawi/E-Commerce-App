@@ -45,7 +45,7 @@ const SignUpScreen = () => {
   const navigation = useNavigation();
 
   type formdata = yup.InferType<typeof schema>;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const createNewAccount = async (data: formdata) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -54,8 +54,11 @@ const SignUpScreen = () => {
         data.Password,
       );
       navigation.navigate("MainAppBottomTab");
-      dispatch(getUserData(userCredential))
+      const userDataObj = {
+        uid: userCredential.user.uid,
+      };
 
+      dispatch(getUserData(userDataObj));
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/email-already-in-use") {
@@ -69,18 +72,17 @@ const SignUpScreen = () => {
       } else {
         errorMessage = "SomeThing Wrong";
       }
-      console.log(errorMessage)
+      console.log(errorMessage);
 
       // Alert.alert(errorMessage)
-       showMessage({
+      showMessage({
         type: "danger",
-        message: errorMessage, });
+        message: errorMessage,
+      });
     }
   };
   return (
-   
     <AppSafeView style={styles.container}>
-  
       <Image source={IMAGES.appLogo} style={styles.logo} />
       <AppTextInputController
         placeholder="Username"
@@ -123,8 +125,6 @@ const SignUpScreen = () => {
         onPress={() => navigation.navigate("SignIn")}
       />
     </AppSafeView>
-    
-    
   );
 };
 
