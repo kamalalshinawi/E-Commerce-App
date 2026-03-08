@@ -8,42 +8,79 @@ import {
 import { vs, s } from "react-native-size-matters";
 import { AppColors } from "../../styles/colors";
 import AppButton from "../../components/buttons/AppButton";
-import { isAndroid, isIos } from "../../constants/constants";
+import {
+  isAndroid,
+  isIos,
+  ShippingFees,
+  Taxes,
+} from "../../constants/constants";
 import AppTextInputController from "../../components/inputs/AppTextInputController";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-
-const schema = yup
-  .object({
-    FullName: yup
-      .string()
-      .required("Name is Required")
-      .min(3, "Name Must Be at least 3 characters"),
-    PhoneNumber: yup
-      .string()
-      .required("Phone number is required")
-      .matches(/^[0-9]+$/, "Phone number must ne matched")
-      .min(10, "phone number must up 10"),
-    Address: yup
-      .string()
-      .required("Address must enter")
-      .min(9, "address must be detailed"),
-  })
-  .required();
-
-type formdata = yup.InferType<typeof schema>;
-
-const {userData} = useSelector((state:RootState)=> state.UserSlice)
+import { addDoc, collection, doc } from "firebase/firestore";
+import { db } from "../../config/firebase";
+import { showMessage } from "react-native-flash-message";
+import { useNavigation } from "@react-navigation/native";
+import EmptyCart from "./EmptyCart";
+import { emptyCart } from "../../store/reducers/CartSlice";
 
 const CheckOutScreen = () => {
+  const schema = yup
+    .object({
+      FullName: yup
+        .string()
+        .required("Name is Required")
+        .min(3, "Name Must Be at least 3 characters"),
+      PhoneNumber: yup
+        .string()
+        .required("Phone number is required")
+        .matches(/^[0-9]+$/, "Phone number must ne matched")
+        .min(10, "phone number must up 10"),
+      Address: yup
+        .string()
+        .required("Address must enter")
+        .min(9, "address must be detailed"),
+    })
+    .required();
+
+  type formdata = yup.InferType<typeof schema>;
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state: RootState) => state.UserSlice);
+  const { items } = useSelector((state: RootState) => state.cartSlice);
+  const totalProductPriceSum = items.reduce(
+    (acc, item) => (acc += item.sum),
+    0,
+  );
+  const orderTotal = totalProductPriceSum + Taxes + ShippingFees;
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(schema),
   });
-  const saveInfo = (formData: formdata) => {
-    console.log(formData);
+  const saveInfo = async (formData: formdata) => {
+    try {
+      const orderBody = {
+        ...formData,
+        items,
+        totalProductPriceSum,
+        orderTotal,
+        createdAt: new Date(),
+      };
+      const userOrderRef = collection(doc(db, "users", userData.uid), "orders");
+      const orderRef = await addDoc(userOrderRef, orderBody);
+
+      showMessage({
+        type: "success",
+        message: "Order Places Successfully",
+      });
+      navigation.goBack();
+      dispatch(emptyCart());
+    } catch (error) {
+      console.log(error);
+      showMessage({ type: "danger", message: "SomeThing Error" });
+    }
   };
   return (
     <AppSafeView>
