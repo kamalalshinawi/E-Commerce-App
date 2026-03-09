@@ -25,10 +25,10 @@ const OrderItem: FC<orderItemProps> = ({ totalAmount, totalPrice, date }) => {
         </View>
         <View style={styles.desContainer}>
           <AppText style={styles.price}>Total Price : ${totalAmount}</AppText>
-          <AppText style={styles.numbText}>{totalPrice}</AppText>
+          <AppText style={styles.numbText}>${totalPrice}</AppText>
         </View>
         <View style={styles.desContainer}>
-          <AppText style={styles.price}>Date: {date} </AppText>
+          <AppText style={styles.price}>Date: </AppText>
           <AppText style={styles.numbText}>{date}</AppText>
         </View>
       </View>
@@ -40,14 +40,12 @@ export default OrderItem;
 
 const styles = StyleSheet.create({
   container: {
-    
     ...commonStyles.shadow,
     borderRadius: s(10),
     backgroundColor: AppColors.white,
     paddingHorizontal: SharedPaddingHorizontal,
     marginHorizontal: s(7),
     marginTop: vs(10),
-    
   },
   sep: {
     width: "100%",
@@ -66,7 +64,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: vs(10),
     justifyContent: "space-between",
-    
   },
   price: {
     fontFamily: AppFonts.Medium,

@@ -1,9 +1,4 @@
-import {
-  StyleSheet,
-  TextInput,
-  StyleProp,
-  TextStyle,
-} from "react-native";
+import { StyleSheet, TextInput, StyleProp, TextStyle } from "react-native";
 import { s, vs } from "react-native-size-matters";
 import React, { FC } from "react";
 import { AppColors } from "../../styles/colors";
@@ -24,7 +19,6 @@ const AppTextInput: FC<AppTextInputProps> = ({
   secureTextEntry,
   keyboardType,
   style,
-
 }) => {
   return (
     <TextInput
@@ -34,8 +28,6 @@ const AppTextInput: FC<AppTextInputProps> = ({
       secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
       style={[styles.input, style]}
-      
-      
     ></TextInput>
   );
 };

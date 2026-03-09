@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import OrderItem from "../../components/cart/OrderItem";
 import { FlatList } from "react-native-gesture-handler";
+import { fetchUserOrders } from "../../config/dataServices";
+import { getDateFromFireStoreTimeStampObject } from "../../helper/dateTimerHelper";
 
 const OrderItemScreen = () => {
   const orderData = [
@@ -24,16 +26,27 @@ const OrderItemScreen = () => {
       totalPrice: "$250",
     },
   ];
+  const [orderList, setOrderList] = useState([]);
+
+  const getOrders = async () => {
+    const response = await fetchUserOrders();
+    setOrderList(response);
+  };
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
   return (
     <View>
       <FlatList
-        data={orderData}
+        data={orderList}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <OrderItem
-            totalAmount={item.totalAmount}
-            totalPrice={item.totalPrice}
-            date={item.date}
+            totalAmount={item.totalProductPriceSum}
+            totalPrice={item.orderTotal}
+            date={getDateFromFireStoreTimeStampObject(item.createdAt)}
           />
         )}
       />

@@ -1,4 +1,4 @@
-import { StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import HomeHeader from "../../components/headers/HomeHeader";
 import AppSafeView from "../../components/views/AppSafeView";

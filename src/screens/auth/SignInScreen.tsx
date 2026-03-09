@@ -14,7 +14,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
-import  { showMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 import { useDispatch } from "react-redux";
 import { getUserData } from "../../store/reducers/UserSlice";
 
@@ -36,7 +36,7 @@ const SignInScreen = () => {
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(schema),
   });
- const dispatch = useDispatch()
+  const dispatch = useDispatch();
   type formdata = yup.InferType<typeof schema>;
 
   const loginUser = async (data: formdata) => {
@@ -47,12 +47,12 @@ const SignInScreen = () => {
         data.Password,
       );
       navigation.navigate("MainAppBottomTab");
-
+      // console.log(JSON.stringify(userCredential,null,3) )
       const userDataObj = {
-        uid: userCredential.user.uid
-      }
+        uid: userCredential.user.uid,
+      };
 
-      dispatch(getUserData(userDataObj))
+      dispatch(getUserData(userDataObj));
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/user-not-found") {
@@ -63,7 +63,6 @@ const SignInScreen = () => {
         errorMessage = "SomeThing Wrong ";
       }
 
-      
       showMessage({
         type: "danger",
         message: errorMessage,
@@ -73,7 +72,6 @@ const SignInScreen = () => {
 
   return (
     <AppSafeView style={styles.container}>
-     
       <Image source={IMAGES.appLogo} style={styles.logo} />
       <AppTextInputController
         control={control}
