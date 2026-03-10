@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet,View } from "react-native";
 import React from "react";
 import { s, vs } from "react-native-size-matters";
 import AppText from "../../components/texts/AppText";
