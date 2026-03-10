@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet,View } from "react-native";
 import React from "react";
 import AppSafeView from "../../components/views/AppSafeView";
 import {
@@ -24,7 +24,6 @@ import { addDoc, collection, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
-import EmptyCart from "./EmptyCart";
 import { emptyCart } from "../../store/reducers/CartSlice";
 
 const CheckOutScreen = () => {

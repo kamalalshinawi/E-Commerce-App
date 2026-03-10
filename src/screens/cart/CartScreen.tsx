@@ -7,7 +7,7 @@ import CartItem from "../../components/cart/CartItem";
 import TotalView from "../../components/cart/TotalView";
 import { FlatList } from "react-native-gesture-handler";
 
-import { s } from "react-native-size-matters";
+import { s, vs } from "react-native-size-matters";
 import AppButton from "../../components/buttons/AppButton";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,5 +68,6 @@ export default CartScreen;
 const styles = StyleSheet.create({
   button: {
     width: "95%",
+    marginBottom:vs(-20),
   },
 });
