@@ -7,17 +7,16 @@ import ActionSheet from "react-native-actions-sheet";
 import RadioWithTitle from "../inputs/RadioWithTitle";
 
 const LanguageBottomSheet = () => {
-  const [Selected, setSelected] = useState(false);
   return (
     <ActionSheet id="LANG_SHEET">
       <View style={styles.container}>
         <AppText style={styles.headText}>Select Language</AppText>
         <RadioWithTitle
           title="English"
-          Selected={Selected}
-          onPress={() => setSelected(true)}
+          Selected={false}
+          onPress={() => {}}
         />
-        <RadioWithTitle title="العربية" Selected={Selected} />
+        <RadioWithTitle title="العربية" Selected={false} />
 
         <AppButton title="Confirm" />
       </View>
