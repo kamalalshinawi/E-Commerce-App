@@ -1,0 +1,80 @@
+{
+  "common": {
+    "confirm": "تأكيد",
+    "cancel": "إلغاء",
+    "continue": "متابعة",
+    "language": "اللغة",
+    "logout": "تسجيل الخروج",
+    "english": "الإنجليزية",
+    "arabic": "العربية",
+    "home": "الرئيسية",
+    "cart": "السلة",
+    "profile": "الحساب",
+    "delete": "حذف",
+    "appName": "سمارت إي كوميرس"
+  },
+  "profile": {
+    "myOrders": "طلباتي",
+    "selectLanguage": "اختر اللغة"
+  },
+  "auth": {
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "login": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "username": "اسم المستخدم",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "createNewAccount": "إنشاء حساب جديد",
+    "goToSignIn": "الذهاب إلى تسجيل الدخول"
+  },
+  "cart": {
+    "emptyTitle": "سلة التسوق فارغة",
+    "emptySubtitle": "تصفح منتجاتنا وابحث عن شيء يعجبك",
+    "startShopping": "ابدأ التسوق",
+    "checkout": "إتمام الطلب",
+    "fullName": "الاسم الكامل",
+    "phoneNumber": "رقم الهاتف",
+    "address": "العنوان",
+    "itemPrice": "سعر المنتجات",
+    "taxes": "الضرائب",
+    "shippingFees": "رسوم الشحن",
+    "orderTotal": "إجمالي الطلب",
+    "orderDetails": "تفاصيل الطلب",
+    "totalPrice": "السعر الكلي",
+    "date": "التاريخ"
+  },
+  "validation": {
+    "emailRequired": "البريد الإلكتروني مطلوب",
+    "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "passwordMin": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+    "userNameRequired": "اسم المستخدم مطلوب",
+    "userNameMin": "اسم المستخدم يجب أن يكون 5 أحرف على الأقل",
+    "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
+    "confirmPasswordMin": "تأكيد كلمة المرور يجب أن يكون 8 أحرف على الأقل",
+    "passwordsMustMatch": "كلمتا المرور غير متطابقتين",
+    "fullNameRequired": "الاسم الكامل مطلوب",
+    "fullNameMin": "الاسم الكامل يجب أن يكون 3 أحرف على الأقل",
+    "phoneRequired": "رقم الهاتف مطلوب",
+    "phoneDigitsOnly": "رقم الهاتف يجب أن يحتوي على أرقام فقط",
+    "phoneMin": "رقم الهاتف يجب أن يكون 10 أرقام على الأقل",
+    "addressRequired": "العنوان مطلوب",
+    "addressMin": "يرجى إدخال عنوان مفصل"
+  },
+  "errors": {
+    "userNotFound": "المستخدم غير موجود",
+    "wrongEmailOrPassword": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "emailAlreadyRegistered": "هذا البريد الإلكتروني مسجل بالفعل",
+    "invalidEmailFormat": "صيغة البريد الإلكتروني غير صحيحة",
+    "weakPassword": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+    "operationNotAllowed": "تسجيل البريد الإلكتروني/كلمة المرور غير مفعل",
+    "somethingWrong": "حدث خطأ ما"
+  },
+  "messages": {
+    "orderPlaced": "تم تنفيذ الطلب بنجاح"
+  },
+  "screens": {
+    "checkout": "إتمام الطلب",
+    "orders": "طلباتي"
+  }
+}

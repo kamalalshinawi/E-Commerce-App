@@ -6,9 +6,11 @@ import { AppColors } from "../styles/colors";
 import {s,vs} from "react-native-size-matters";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Octicons from '@expo/vector-icons/Octicons';
+import { useTranslation } from "react-i18next";
 const Tab = createBottomTabNavigator();
 
 const MainAppBottomTab = () => {
+  const { t } = useTranslation();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -26,7 +28,7 @@ const MainAppBottomTab = () => {
         tabBarIcon: ({color,size})=>(
           <AntDesign name="home" size={24} color={color} />
         ),
-        title: "Home"
+        title: t("common.home")
       }}
       
       />
@@ -35,7 +37,7 @@ const MainAppBottomTab = () => {
         tabBarIcon: ({color,size}) => (
           <AntDesign name="shopping-cart" size={size} color={color} />
         ),
-        title: "Cart"
+        title: t("common.cart")
       }}
       />
       <Tab.Screen name="Profile" component={ProfileScreen} 
@@ -43,7 +45,7 @@ const MainAppBottomTab = () => {
         tabBarIcon: ({color,size}) => (
           <Octicons name="person" size={size} color={color} />
         ),
-        title: "Profile"
+        title: t("common.profile")
       }}
       />
     </Tab.Navigator>

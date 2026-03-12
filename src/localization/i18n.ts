@@ -1,28 +1,31 @@
-import i18next from "i18next"
-import i18n from "i18next"
-import {initReactI18next} from "react-i18next"
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import enTranslation from "./en.json";
+import arTranslation from "./ar.json";
 
-const LANGUAGE = {
-    en:{
-
-    },
-    ar:{
-
-    },
-}
+const resources = {
+  en: {
+    translation: enTranslation,
+  },
+  ar: {
+    translation: arTranslation,
+  },
+};
 
 i18n.use(initReactI18next).init({
-    resources:LANGUAGE,
-    fallbackLng:"en",
-    defaultNS: "translation",
-    ns:["translation"],
-    react:{
-        useSuspense:false,
-    },
-    interpolation:{
-        escapeValue: false,
-    }
-})
+  resources,
+  lng: "en",
+  fallbackLng: "en",
+  supportedLngs: ["en", "ar"],
+  defaultNS: "translation",
+  ns: ["translation"],
+  react: {
+    useSuspense: false,
+  },
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 
-export default i18n
+export default i18n;

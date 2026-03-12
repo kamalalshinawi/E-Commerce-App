@@ -17,32 +17,34 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import { useDispatch } from "react-redux";
 import { getUserData } from "../../store/reducers/UserSlice";
+import { useTranslation } from "react-i18next";
 const SignUpScreen = () => {
+  const { t } = useTranslation();
   const schema = yup
     .object({
       UserName: yup
         .string()
-        .required("Must Enter The UserName")
-        .min(5, "User Name Must up to 5 "),
+        .required(t("validation.userNameRequired"))
+        .min(5, t("validation.userNameMin")),
       Email: yup
         .string()
-        .required("Must enter Email")
-        .min(11, "Must Enter a valid Email"),
+        .required(t("validation.emailRequired"))
+        .min(11, t("validation.emailInvalid")),
       Password: yup
         .string()
-        .required("Enter Your Password")
-        .min(8, "password Must up to 8 "),
+        .required(t("validation.passwordRequired"))
+        .min(8, t("validation.passwordMin")),
       conPassword: yup
         .string()
-        .required("Enter Your Password")
-        .min(8, "password Must up to 8 ")
-        .oneOf([yup.ref("Password")], "Password Must Match "),
+        .required(t("validation.confirmPasswordRequired"))
+        .min(8, t("validation.confirmPasswordMin"))
+        .oneOf([yup.ref("Password")], t("validation.passwordsMustMatch")),
     })
     .required();
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(schema),
   });
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   type formdata = yup.InferType<typeof schema>;
   const dispatch = useDispatch();
@@ -62,15 +64,15 @@ const SignUpScreen = () => {
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/email-already-in-use") {
-        errorMessage = "This email is already registered";
+        errorMessage = t("errors.emailAlreadyRegistered");
       } else if (error.code === "auth/invalid-email") {
-        errorMessage = "Invalid email address format";
+        errorMessage = t("errors.invalidEmailFormat");
       } else if (error.code === "auth/weak-password") {
-        errorMessage = "Password must be at least 6 characters";
+        errorMessage = t("errors.weakPassword");
       } else if (error.code === "auth/operation-not-allowed") {
-        errorMessage = "Email/password accounts are not enabled";
+        errorMessage = t("errors.operationNotAllowed");
       } else {
-        errorMessage = "SomeThing Wrong";
+        errorMessage = t("errors.somethingWrong");
       }
       console.log(errorMessage);
 
@@ -85,20 +87,20 @@ const SignUpScreen = () => {
     <AppSafeView style={styles.container}>
       <Image source={IMAGES.appLogo} style={styles.logo} />
       <AppTextInputController
-        placeholder="Username"
+        placeholder={t("auth.username")}
         name={"UserName"}
         control={control}
         KeyboardType={"default"}
       />
       <AppTextInputController
-        placeholder="Email"
+        placeholder={t("auth.email")}
         name={"Email"}
         control={control}
         KeyboardType={"email-address"}
       />
 
       <AppTextInputController
-        placeholder="Password"
+        placeholder={t("auth.password")}
         name={"Password"}
         control={control}
         KeyboardType={"default"}
@@ -106,20 +108,20 @@ const SignUpScreen = () => {
       />
 
       <AppTextInputController
-        placeholder="Confirm Password"
+        placeholder={t("auth.confirmPassword")}
         name={"conPassword"}
         control={control}
         KeyboardType={"default"}
         secureTextEntry={true}
       />
 
-      <AppText style={styles.appName}> Smart E-Commerce</AppText>
+      <AppText style={styles.appName}>{t("common.appName")}</AppText>
       <AppButton
-        title="Create New Account"
+        title={t("auth.createNewAccount")}
         onPress={handleSubmit(createNewAccount)}
       />
       <AppButton
-        title="Go To Sign In"
+        title={t("auth.goToSignIn")}
         style={styles.SignInButton}
         TextColor={AppColors.primary}
         onPress={() => navigation.navigate("SignIn")}

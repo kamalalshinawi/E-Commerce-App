@@ -17,22 +17,24 @@ import { auth } from "../../config/firebase";
 import { showMessage } from "react-native-flash-message";
 import { useDispatch } from "react-redux";
 import { getUserData } from "../../store/reducers/UserSlice";
+import { useTranslation } from "react-i18next";
 
 const SignInScreen = () => {
+  const { t } = useTranslation();
   const schema = yup
     .object({
       Email: yup
         .string()
-        .required("Must type email")
-        .min(11, "must Enter Email"),
+        .required(t("validation.emailRequired"))
+        .min(11, t("validation.emailInvalid")),
       Password: yup
         .string()
-        .required("Must enter Password")
-        .min(8, "Password Must be up 8 number "),
+        .required(t("validation.passwordRequired"))
+        .min(8, t("validation.passwordMin")),
     })
     .required();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(schema),
   });
@@ -56,11 +58,11 @@ const SignInScreen = () => {
     } catch (error: any) {
       let errorMessage = "";
       if (error.code === "auth/user-not-found") {
-        errorMessage = "User Not Found";
+        errorMessage = t("errors.userNotFound");
       } else if (error.code === "auth/invalid-credential") {
-        errorMessage = "Wrong Email or Password";
+        errorMessage = t("errors.wrongEmailOrPassword");
       } else {
-        errorMessage = "SomeThing Wrong ";
+        errorMessage = t("errors.somethingWrong");
       }
 
       showMessage({
@@ -75,21 +77,21 @@ const SignInScreen = () => {
       <Image source={IMAGES.appLogo} style={styles.logo} />
       <AppTextInputController
         control={control}
-        placeholder="Email"
+        placeholder={t("auth.email")}
         name={"Email"}
         KeyboardType={"email-address"}
       />
       <AppTextInputController
         control={control}
-        placeholder="Password"
+        placeholder={t("auth.password")}
         name={"Password"}
         secureTextEntry={true}
       />
 
-      <AppText style={styles.appName}> Smart E-Commerce</AppText>
-      <AppButton title="Login" onPress={handleSubmit(loginUser)} />
+      <AppText style={styles.appName}>{t("common.appName")}</AppText>
+      <AppButton title={t("auth.login")} onPress={handleSubmit(loginUser)} />
       <AppButton
-        title="Sign Up"
+        title={t("auth.signUp")}
         style={styles.SignUpbutton}
         TextColor={AppColors.primary}
         onPress={() => navigation.navigate("SignUp")}

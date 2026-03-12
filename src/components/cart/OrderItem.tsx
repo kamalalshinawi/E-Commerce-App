@@ -8,6 +8,7 @@ import {
 import { AppColors } from "../../styles/colors";
 import AppText from "../texts/AppText";
 import { AppFonts } from "../../styles/fonts";
+import { useTranslation } from "react-i18next";
 
 interface orderItemProps {
   totalAmount: number | string;
@@ -16,19 +17,22 @@ interface orderItemProps {
 }
 
 const OrderItem: FC<orderItemProps> = ({ totalAmount, totalPrice, date }) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <View style={{ height: vs(120) }}>
         <View style={styles.textContainer}>
-          <AppText style={styles.title}>Order Details:</AppText>
+          <AppText style={styles.title}>{t("cart.orderDetails")}:</AppText>
           <View style={styles.sep} />
         </View>
         <View style={styles.desContainer}>
-          <AppText style={styles.price}>Total Price : ${totalAmount}</AppText>
+          <AppText style={styles.price}>
+            {t("cart.totalPrice")} : ${totalAmount}
+          </AppText>
           <AppText style={styles.numbText}>${totalPrice}</AppText>
         </View>
         <View style={styles.desContainer}>
-          <AppText style={styles.price}>Date: </AppText>
+          <AppText style={styles.price}>{t("cart.date")}: </AppText>
           <AppText style={styles.numbText}>{date}</AppText>
         </View>
       </View>

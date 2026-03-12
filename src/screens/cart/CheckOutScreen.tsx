@@ -25,28 +25,30 @@ import { db } from "../../config/firebase";
 import { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
 import { emptyCart } from "../../store/reducers/CartSlice";
+import { useTranslation } from "react-i18next";
 
 const CheckOutScreen = () => {
+  const { t } = useTranslation();
   const schema = yup
     .object({
       FullName: yup
         .string()
-        .required("Name is Required")
-        .min(3, "Name Must Be at least 3 characters"),
+        .required(t("validation.fullNameRequired"))
+        .min(3, t("validation.fullNameMin")),
       PhoneNumber: yup
         .string()
-        .required("Phone number is required")
-        .matches(/^[0-9]+$/, "Phone number must ne matched")
-        .min(10, "phone number must up 10"),
+        .required(t("validation.phoneRequired"))
+        .matches(/^[0-9]+$/, t("validation.phoneDigitsOnly"))
+        .min(10, t("validation.phoneMin")),
       Address: yup
         .string()
-        .required("Address must enter")
-        .min(9, "address must be detailed"),
+        .required(t("validation.addressRequired"))
+        .min(9, t("validation.addressMin")),
     })
     .required();
 
   type formdata = yup.InferType<typeof schema>;
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const dispatch = useDispatch();
   const { userData } = useSelector((state: RootState) => state.UserSlice);
   const { items } = useSelector((state: RootState) => state.cartSlice);
@@ -75,13 +77,13 @@ const CheckOutScreen = () => {
 
       showMessage({
         type: "success",
-        message: "Order Places Successfully",
+        message: t("messages.orderPlaced"),
       });
       navigation.goBack();
       dispatch(emptyCart());
     } catch (error) {
       console.log(error);
-      showMessage({ type: "danger", message: "SomeThing Error" });
+      showMessage({ type: "danger", message: t("errors.somethingWrong") });
     }
   };
   return (
@@ -91,23 +93,23 @@ const CheckOutScreen = () => {
           <AppTextInputController
             control={control}
             name={"FullName"}
-            placeholder="Full Name"
+            placeholder={t("cart.fullName")}
           />
           <AppTextInputController
             control={control}
             name={"PhoneNumber"}
-            placeholder="Phone number"
+            placeholder={t("cart.phoneNumber")}
             KeyboardType={"numeric"}
           />
           <AppTextInputController
             control={control}
             name={"Address"}
-            placeholder="Address "
+            placeholder={t("cart.address")}
           />
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <AppButton title="Confirm" onPress={handleSubmit(saveInfo)} />
+        <AppButton title={t("common.confirm")} onPress={handleSubmit(saveInfo)} />
       </View>
     </AppSafeView>
   );

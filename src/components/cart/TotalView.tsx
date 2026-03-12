@@ -5,6 +5,7 @@ import AppText from "../texts/AppText";
 import { Taxes, ShippingFees } from "../../constants/constants";
 
 import { AppColors } from "../../styles/colors";
+import { useTranslation } from "react-i18next";
 
 interface TotalViewProps {
   itemPrice: number;
@@ -12,25 +13,26 @@ interface TotalViewProps {
 }
 
 const TotalView: FC<TotalViewProps> = ({ itemPrice, orderTotal }) => {
+  const { t } = useTranslation();
   return (
     <View>
       <View style={styles.row}>
-        <AppText style={styles.itemTitle}>Item Price</AppText>
+        <AppText style={styles.itemTitle}>{t("cart.itemPrice")}</AppText>
         <AppText style={styles.itemPrice}>${itemPrice}</AppText>
       </View>
       <View style={styles.row}>
-        <AppText style={styles.itemTitle}>Taxes</AppText>
+        <AppText style={styles.itemTitle}>{t("cart.taxes")}</AppText>
         <AppText style={styles.itemPrice}>${Taxes}</AppText>
       </View>
       <View style={styles.row}>
-        <AppText style={styles.itemTitle}>Shipping Fees</AppText>
+        <AppText style={styles.itemTitle}>{t("cart.shippingFees")}</AppText>
         <AppText style={styles.itemPrice}>${ShippingFees}</AppText>
       </View>
 
       <View style={styles.separator} />
 
       <View style={styles.row}>
-        <AppText style={styles.itemTitle}>Order Total </AppText>
+        <AppText style={styles.itemTitle}>{t("cart.orderTotal")} </AppText>
         <AppText style={styles.itemPrice}>${orderTotal}</AppText>
       </View>
     </View>

@@ -3,10 +3,12 @@ import AuthStack from "./AuthStack";
 import MainAppBottomTab from "./MainAppBottomTab";
 import CheckOutScreen from "../screens/cart/CheckOutScreen";
 import OrderItemScreen from "../screens/profile/OrderItemScreen";
+import { useTranslation } from "react-i18next";
 
 const Stack = createStackNavigator();
 
 const MainAppStack = () => {
+  const { t } = useTranslation();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -15,8 +17,16 @@ const MainAppStack = () => {
     >
       <Stack.Screen name="AuthStack" component={AuthStack} />
       <Stack.Screen name="MainAppBottomTab" component={MainAppBottomTab} />
-      <Stack.Screen options={{headerShown:true}} name="CheckOutScreen" component={CheckOutScreen} ></Stack.Screen>
-      <Stack.Screen options={{headerShown:true}} name="OrderItem" component={OrderItemScreen} />
+      <Stack.Screen
+        options={{ headerShown: true, title: t("screens.checkout") }}
+        name="CheckOutScreen"
+        component={CheckOutScreen}
+      ></Stack.Screen>
+      <Stack.Screen
+        options={{ headerShown: true, title: t("screens.orders") }}
+        name="OrderItem"
+        component={OrderItemScreen}
+      />
     </Stack.Navigator>
   );
 };

@@ -1,0 +1,80 @@
+{
+  "common": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "language": "Language",
+    "logout": "Logout",
+    "english": "English",
+    "arabic": "Arabic",
+    "home": "Home",
+    "cart": "Cart",
+    "profile": "Profile",
+    "delete": "Delete",
+    "appName": "Smart E-Commerce"
+  },
+  "profile": {
+    "myOrders": "My Orders",
+    "selectLanguage": "Select Language"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "signUp": "Sign Up",
+    "username": "Username",
+    "confirmPassword": "Confirm Password",
+    "createNewAccount": "Create New Account",
+    "goToSignIn": "Go To Sign In"
+  },
+  "cart": {
+    "emptyTitle": "Your Cart Is Empty",
+    "emptySubtitle": "Browse our products and find something you like",
+    "startShopping": "Start Shopping",
+    "checkout": "Checkout",
+    "fullName": "Full Name",
+    "phoneNumber": "Phone number",
+    "address": "Address",
+    "itemPrice": "Item Price",
+    "taxes": "Taxes",
+    "shippingFees": "Shipping Fees",
+    "orderTotal": "Order Total",
+    "orderDetails": "Order Details",
+    "totalPrice": "Total Price",
+    "date": "Date"
+  },
+  "validation": {
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email",
+    "passwordRequired": "Password is required",
+    "passwordMin": "Password must be at least 8 characters",
+    "userNameRequired": "Username is required",
+    "userNameMin": "Username must be at least 5 characters",
+    "confirmPasswordRequired": "Confirm password is required",
+    "confirmPasswordMin": "Confirm password must be at least 8 characters",
+    "passwordsMustMatch": "Passwords must match",
+    "fullNameRequired": "Full name is required",
+    "fullNameMin": "Full name must be at least 3 characters",
+    "phoneRequired": "Phone number is required",
+    "phoneDigitsOnly": "Phone number must contain digits only",
+    "phoneMin": "Phone number must be at least 10 digits",
+    "addressRequired": "Address is required",
+    "addressMin": "Address must be detailed"
+  },
+  "errors": {
+    "userNotFound": "User not found",
+    "wrongEmailOrPassword": "Wrong email or password",
+    "emailAlreadyRegistered": "This email is already registered",
+    "invalidEmailFormat": "Invalid email address format",
+    "weakPassword": "Password must be at least 6 characters",
+    "operationNotAllowed": "Email/password accounts are not enabled",
+    "somethingWrong": "Something went wrong"
+  },
+  "messages": {
+    "orderPlaced": "Order placed successfully"
+  },
+  "screens": {
+    "checkout": "Checkout",
+    "orders": "My Orders"
+  }
+}
