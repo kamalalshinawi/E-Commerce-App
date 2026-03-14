@@ -4,6 +4,7 @@ import OrderItem from "../../components/cart/OrderItem";
 import { FlatList } from "react-native-gesture-handler";
 import { fetchUserOrders } from "../../config/dataServices";
 import { getDateFromFireStoreTimeStampObject } from "../../helper/dateTimerHelper";
+import { vs } from "react-native-size-matters";
 
 const OrderItemScreen = () => {
 
@@ -30,6 +31,9 @@ const OrderItemScreen = () => {
             date={getDateFromFireStoreTimeStampObject(item.createdAt)}
           />
         )}
+      contentContainerStyle={{
+        paddingBottom:vs(50),
+      }}
       />
     </View>
   );
