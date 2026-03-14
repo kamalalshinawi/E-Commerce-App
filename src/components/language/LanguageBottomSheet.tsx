@@ -6,10 +6,11 @@ import AppButton from "../buttons/AppButton";
 import ActionSheet, { SheetManager } from "react-native-actions-sheet";
 import RadioWithTitle from "../inputs/RadioWithTitle";
 import { useTranslation } from "react-i18next";
+import { languagesArr } from "../../localization/LanguagesList";
 
 const LanguageBottomSheet = () => {
   const { t, i18n } = useTranslation();
-  const [selectedLanguage, setSelectedLanguage] = useState<"en" | "ar">(
+  const [selectedLanguage, setSelectedLanguage] = useState(
     i18n.language?.startsWith("ar") ? "ar" : "en",
   );
 
@@ -22,16 +23,15 @@ const LanguageBottomSheet = () => {
     <ActionSheet id="LANG_SHEET">
       <View style={styles.container}>
         <AppText style={styles.headText}>{t("profile.selectLanguage")}</AppText>
-        <RadioWithTitle
-          title={t("common.english")}
-          Selected={selectedLanguage === "en"}
-          onPress={() => setSelectedLanguage("en")}
-        />
-        <RadioWithTitle
-          title={t("common.arabic")}
-          Selected={selectedLanguage === "ar"}
-          onPress={() => setSelectedLanguage("ar")}
-        />
+
+        {languagesArr.map((lang) => (
+          <RadioWithTitle
+            title={lang.label}
+            key={lang.code}
+            Selected={selectedLanguage === lang.code}
+            onPress={() => setSelectedLanguage(lang.code)}
+          />
+        ))}
         <AppButton title={t("common.confirm")} onPress={onConfirmLanguage} />
       </View>
     </ActionSheet>
