@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface UserData {
   userData: object;
@@ -13,6 +14,7 @@ const userData = createSlice({
   reducers: {
     getUserData: (state, action: PayloadAction<object>) => {
       state.userData = action.payload;
+      AsyncStorage.setItem("USER_DATA",JSON.stringify(action.payload))
     },
   },
 });

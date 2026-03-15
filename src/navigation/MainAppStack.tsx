@@ -4,16 +4,38 @@ import MainAppBottomTab from "./MainAppBottomTab";
 import CheckOutScreen from "../screens/cart/CheckOutScreen";
 import OrderItemScreen from "../screens/profile/OrderItemScreen";
 import { useTranslation } from "react-i18next";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../store/reducers/UserSlice";
+import { useEffect } from "react";
+import { RootState } from "../store/store";
 
 const Stack = createStackNavigator();
 
 const MainAppStack = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state: RootState) => state.UserSlice);
+  const isUserLogIn = async () => {
+    try {
+      const storedUserData = await AsyncStorage.getItem("USER_DATA");
+      if (storedUserData) {
+        dispatch(getUserData(JSON.parse(storedUserData)));
+      }
+    } catch (error) {
+      // handel error
+    }
+  };
+  useEffect(() => {
+    isUserLogIn();
+  });
+
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName={userData ? "MainAppBottomTab" : "AuthStack"}
     >
       <Stack.Screen name="AuthStack" component={AuthStack} />
       <Stack.Screen name="MainAppBottomTab" component={MainAppBottomTab} />
