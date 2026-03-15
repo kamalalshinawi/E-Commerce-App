@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 
 const App = () => {
   const [totalNumber, setTotalNumber] = useState(0);
-  useEffect(()=>{
+  useEffect(() => {
     getData();
-  })
+  });
   // store data
-  const storeData = async (value) => {
+  const storeData = async (value: string) => {
     try {
       await AsyncStorage.setItem("totalNumber", value);
     } catch (e) {
@@ -22,7 +22,7 @@ const App = () => {
       const value = await AsyncStorage.getItem("totalNumber");
       if (value !== null) {
         // value previously stored
-        setTotalNumber(Number(value))
+        setTotalNumber(Number(value));
       }
     } catch (e) {
       // error reading value
@@ -35,10 +35,35 @@ const App = () => {
     setTotalNumber(totalNumbers);
     storeData(totalNumbers?.toString());
   };
+
+  // Reset the data
+  const clearStorageDataAndVisible = async () => {
+    try {
+      await AsyncStorage.removeItem("totalNumber");
+      setTotalNumber(0);
+    } catch (error) {
+      //handel Error
+    }
+  };
+
+  const clearStorage = async () => {
+    try {
+      await AsyncStorage.removeItem("totalNumber");
+    } catch (error) {
+      // Error handel
+    }
+  };
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text style={{ fontSize: 20 }}>Total number is {totalNumber}</Text>
       <Button title="Increase by 10 " onPress={handelIncreaseTotalNumbers} />
+
+      <Button
+        title="Reset The Total Numbers in both "
+        onPress={clearStorageDataAndVisible}
+      />
+      <Button title="Reset The Local Storage only " onPress={clearStorage} />
     </View>
   );
 };
