@@ -4,11 +4,7 @@ import MainAppBottomTab from "./MainAppBottomTab";
 import CheckOutScreen from "../screens/cart/CheckOutScreen";
 import OrderItemScreen from "../screens/profile/OrderItemScreen";
 import { useTranslation } from "react-i18next";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserData, setLoading } from "../store/reducers/UserSlice";
-import { useEffect } from "react";
-import { RootState } from "../store/store";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { AppColors } from "../styles/colors";
 import { onAuthStateChanged } from "firebase/auth";
@@ -18,33 +14,17 @@ const Stack = createStackNavigator();
 
 const MainAppStack = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { userData, isLoading } = useSelector(
-    (state: RootState) => state.UserSlice,
-  );
-  const isUserLogIn = async () => {
-    try {
-      const storedUserData = await AsyncStorage.getItem("USER_DATA");
-      if (storedUserData) {
-        dispatch(getUserData(JSON.parse(storedUserData)));
-      } else {
-        dispatch(setLoading(false));
-      }
-    } catch (error) {
-      // handel error
-      dispatch(setLoading(false));
-    }
-  };
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [userData, setUserData] = useState<object | null>(null);
   useEffect(() => {
-    isUserLogIn();
-  }, []);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (userData) => {
-      if (userData) {
+    onAuthStateChanged(auth, (userDataFromFireBase) => {
+      if (userDataFromFireBase) {
         console.log("User is Sign In");
+        setIsLoading(false);
+        setUserData(userDataFromFireBase);
       } else {
         console.log("User is Signed Out");
+        setIsLoading(false);
       }
     });
   }, []);
