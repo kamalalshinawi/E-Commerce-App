@@ -6,7 +6,7 @@ import OrderItemScreen from "../screens/profile/OrderItemScreen";
 import { useTranslation } from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData } from "../store/reducers/UserSlice";
+import { getUserData, setLoading } from "../store/reducers/UserSlice";
 import { useEffect } from "react";
 import { RootState } from "../store/store";
 
@@ -15,20 +15,29 @@ const Stack = createStackNavigator();
 const MainAppStack = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { userData } = useSelector((state: RootState) => state.UserSlice);
+  const { userData, isLoading } = useSelector(
+    (state: RootState) => state.UserSlice,
+  );
   const isUserLogIn = async () => {
     try {
       const storedUserData = await AsyncStorage.getItem("USER_DATA");
       if (storedUserData) {
         dispatch(getUserData(JSON.parse(storedUserData)));
+      } else {
+        dispatch(setLoading(false));
       }
     } catch (error) {
       // handel error
+      dispatch(setLoading(false));
     }
   };
   useEffect(() => {
     isUserLogIn();
-  });
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <Stack.Navigator

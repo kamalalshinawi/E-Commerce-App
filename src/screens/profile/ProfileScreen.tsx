@@ -7,10 +7,15 @@ import { useNavigation } from "@react-navigation/native";
 import { SheetManager } from "react-native-actions-sheet";
 import LanguageBottomSheet from "../../components/language/LanguageBottomSheet";
 import { useTranslation } from "react-i18next";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileScreen = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
+  const handelLogOut = async () => {
+    await AsyncStorage.removeItem("USER_DATA");
+    navigation.navigate("AuthStack");
+  };
   return (
     <AppSafeView>
       <HomeHeader />
@@ -23,7 +28,7 @@ const ProfileScreen = () => {
         onPress={() => SheetManager.show("LANG_SHEET")}
       />
       <LanguageBottomSheet />
-      <ProfileSectionButton title={t("common.logout")} />
+      <ProfileSectionButton title={t("common.logout")} onPress={handelLogOut} />
     </AppSafeView>
   );
 };

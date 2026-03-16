@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface UserData {
-  userData: object;
+  userData: object | null;
+  isLoading: boolean;
 }
 
 const initialState: UserData = {
-  userData: {},
+  userData: null,
+  isLoading: true,
 };
 const userData = createSlice({
   name: "userdata",
@@ -14,11 +16,15 @@ const userData = createSlice({
   reducers: {
     getUserData: (state, action: PayloadAction<object>) => {
       state.userData = action.payload;
-      AsyncStorage.setItem("USER_DATA",JSON.stringify(action.payload))
+      AsyncStorage.setItem("USER_DATA", JSON.stringify(action.payload));
+      state.isLoading = false;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
     },
   },
 });
 
-export const { getUserData } = userData.actions;
+export const { getUserData, setLoading } = userData.actions;
 
 export default userData;

@@ -7,7 +7,6 @@ import { getDateFromFireStoreTimeStampObject } from "../../helper/dateTimerHelpe
 import { vs } from "react-native-size-matters";
 
 const OrderItemScreen = () => {
-
   const [orderList, setOrderList] = useState([]);
 
   const getOrders = async () => {
@@ -31,9 +30,9 @@ const OrderItemScreen = () => {
             date={getDateFromFireStoreTimeStampObject(item.createdAt)}
           />
         )}
-      contentContainerStyle={{
-        paddingBottom:vs(50),
-      }}
+        contentContainerStyle={{
+          paddingBottom: vs(50),
+        }}
       />
     </View>
   );
