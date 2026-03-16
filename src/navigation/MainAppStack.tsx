@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import { RootState } from "../store/store";
 import { ActivityIndicator, View } from "react-native";
 import { AppColors } from "../styles/colors";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 const Stack = createStackNavigator();
 
@@ -35,6 +37,16 @@ const MainAppStack = () => {
   };
   useEffect(() => {
     isUserLogIn();
+  }, []);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (userData) => {
+      if (userData) {
+        console.log("User is Sign In");
+      } else {
+        console.log("User is Signed Out");
+      }
+    });
   }, []);
 
   if (isLoading) {
