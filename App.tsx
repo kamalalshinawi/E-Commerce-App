@@ -7,6 +7,7 @@ import { store } from "./src/store/store";
 import FlashMessage from "react-native-flash-message";
 import i18n from "./src/localization/i18n";
 import { I18nextProvider } from "react-i18next";
+import { AppColors } from "./src/styles/colors";
 export default function App() {
   const [fontLoad] = useFonts({
     "nunito-Bold": require("./src/assets/fonts/Nunito-Bold.ttf"),
@@ -16,7 +17,7 @@ export default function App() {
   if (!fontLoad) {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <ActivityIndicator size={"large"} />
+        <ActivityIndicator size={"large"} color={AppColors.primary} />
       </View>
     );
   }
