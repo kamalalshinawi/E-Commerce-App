@@ -21,7 +21,8 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.kamalalshinawi.Ecommerce"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,10 +33,15 @@
         {
           "backgroundColor": "#ffffff",
           "image": "./assets/appsplash.png",
-
           "imageWidth": 200
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1d710331-b0c1-4507-b036-a73bfb63fc77"
+      }
+    },
+    "owner": "kamalalshinawi"
   }
 }
