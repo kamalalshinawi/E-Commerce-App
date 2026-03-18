@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 const LanguageBottomSheet = () => {
   const { t, i18n } = useTranslation();
   const insets = useSafeAreaInsets();
+  const safeBottomInset = Math.min(insets.bottom, vs(10));
   const [selectedLanguage, setSelectedLanguage] = useState(
     i18n.language?.startsWith("ar") ? "ar" : "en",
   );
@@ -23,7 +24,7 @@ const LanguageBottomSheet = () => {
 
   return (
     <ActionSheet id="LANG_SHEET">
-      <View style={[styles.container, { paddingBottom: insets.bottom + vs(8) }]}>
+      <View style={[styles.container, { paddingBottom: safeBottomInset + vs(4) }]}>
         <AppText style={styles.headText}>{t("profile.selectLanguage")}</AppText>
 
         {languagesArr.map((lang) => (

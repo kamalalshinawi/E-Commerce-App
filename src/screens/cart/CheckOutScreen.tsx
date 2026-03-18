@@ -35,7 +35,8 @@ interface UserData {
 const CheckOutScreen = () => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const checkoutButtonBottomPadding = insets.bottom + (isAndroid ? vs(4) : vs(8));
+  const safeBottomInset = Math.min(insets.bottom, vs(12));
+  const checkoutButtonBottomPadding = safeBottomInset + (isAndroid ? vs(2) : vs(6));
   const checkoutContentBottomPadding = checkoutButtonBottomPadding + vs(54);
   const schema = yup
     .object({

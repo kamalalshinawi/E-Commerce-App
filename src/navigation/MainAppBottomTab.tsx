@@ -14,10 +14,12 @@ const Tab = createBottomTabNavigator();
 const MainAppBottomTab = () => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const bottomPadding = insets.bottom > 0 ? insets.bottom : vs(8);
+  const safeBottomInset = Math.min(insets.bottom, vs(14));
+  const bottomPadding = safeBottomInset > 0 ? safeBottomInset : vs(4);
 
   return (
     <Tab.Navigator
+      safeAreaInsets={{ bottom: 0 }}
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: AppColors.primary,
@@ -31,11 +33,11 @@ const MainAppBottomTab = () => {
           borderTopColor: AppColors.borderColor,
           borderTopWidth: StyleSheet.hairlineWidth,
           height: vs(54) + bottomPadding,
-          paddingTop: vs(6),
+          paddingTop: vs(5),
           paddingBottom: bottomPadding,
         },
         tabBarItemStyle: {
-          paddingVertical: vs(1),
+          paddingVertical: vs(2),
         },
         tabBarLabelStyle: {
           fontSize: s(12),
