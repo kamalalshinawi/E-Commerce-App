@@ -24,6 +24,7 @@ const AppTextInput: FC<AppTextInputProps> = ({
     <TextInput
       value={value}
       placeholder={placeholder}
+      placeholderTextColor={AppColors.medGray}
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
     borderColor: AppColors.borderColor,
     paddingHorizontal: s(15),
     fontSize: s(14),
+    color: AppColors.black,
     backgroundColor: AppColors.white,
     marginBottom: vs(10),
   },

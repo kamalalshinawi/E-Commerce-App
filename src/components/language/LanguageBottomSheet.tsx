@@ -7,9 +7,11 @@ import ActionSheet, { SheetManager } from "react-native-actions-sheet";
 import RadioWithTitle from "../inputs/RadioWithTitle";
 import { useTranslation } from "react-i18next";
 import { languagesArr } from "../../localization/LanguagesList";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const LanguageBottomSheet = () => {
   const { t, i18n } = useTranslation();
+  const insets = useSafeAreaInsets();
   const [selectedLanguage, setSelectedLanguage] = useState(
     i18n.language?.startsWith("ar") ? "ar" : "en",
   );
@@ -21,7 +23,7 @@ const LanguageBottomSheet = () => {
 
   return (
     <ActionSheet id="LANG_SHEET">
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingBottom: insets.bottom + vs(8) }]}>
         <AppText style={styles.headText}>{t("profile.selectLanguage")}</AppText>
 
         {languagesArr.map((lang) => (

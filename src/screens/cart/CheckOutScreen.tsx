@@ -26,9 +26,15 @@ import { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
 import { emptyCart } from "../../store/reducers/CartSlice";
 import { useTranslation } from "react-i18next";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+interface UserData {
+  uid?: string;
+}
 
 const CheckOutScreen = () => {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const schema = yup
     .object({
       FullName: yup
@@ -51,6 +57,7 @@ const CheckOutScreen = () => {
   const navigation = useNavigation<any>();
   const dispatch = useDispatch();
   const { userData } = useSelector((state: RootState) => state.UserSlice);
+  const userId = (userData as UserData | null)?.uid;
   const { items } = useSelector((state: RootState) => state.cartSlice);
   const totalProductPriceSum = items.reduce(
     (acc, item) => (acc += item.sum),
@@ -62,6 +69,11 @@ const CheckOutScreen = () => {
   });
   const saveInfo = async (formData: formdata) => {
     try {
+      if (!userId) {
+        showMessage({ type: "danger", message: t("errors.somethingWrong") });
+        return;
+      }
+
       const orderBody = {
         ...formData,
         items,
@@ -69,7 +81,7 @@ const CheckOutScreen = () => {
         orderTotal,
         createdAt: new Date(),
       };
-      const userOrderRef = collection(doc(db, "users", userData.uid), "orders");
+      const userOrderRef = collection(doc(db, "users", userId), "orders");
       await addDoc(userOrderRef, orderBody);
 
       const ordersRef = collection(db, "orders");
@@ -88,7 +100,13 @@ const CheckOutScreen = () => {
   };
   return (
     <AppSafeView>
-      <View style={{ paddingHorizontal: SharedPaddingHorizontal, flex: 1 }}>
+      <View
+        style={{
+          paddingHorizontal: SharedPaddingHorizontal,
+          flex: 1,
+          paddingBottom: insets.bottom + vs(90),
+        }}
+      >
         <View style={styles.inputsContainer}>
           <AppTextInputController
             control={control}
@@ -108,7 +126,12 @@ const CheckOutScreen = () => {
           />
         </View>
       </View>
-      <View style={styles.buttonContainer}>
+      <View
+        style={[
+          styles.buttonContainer,
+          { paddingBottom: insets.bottom + (isAndroid ? vs(14) : vs(8)) },
+        ]}
+      >
         <AppButton title={t("common.confirm")} onPress={handleSubmit(saveInfo)} />
       </View>
     </AppSafeView>
@@ -129,9 +152,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: SharedPaddingHorizontal,
     position: "absolute",
     bottom: 0,
+    backgroundColor: AppColors.white,
     borderTopWidth: 1,
     borderColor: AppColors.lightGray,
     width: "100%",
-    paddingTop: isAndroid ? vs(14) : 0,
+    paddingTop: isAndroid ? vs(14) : vs(8),
   },
 });

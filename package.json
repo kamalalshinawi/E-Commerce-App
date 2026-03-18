@@ -22,6 +22,7 @@
     "expo-font": "~14.0.11",
     "expo-splash-screen": "~31.0.13",
     "expo-status-bar": "~3.0.9",
+    "expo-updates": "~29.0.16",
     "expo-vector-icons": "^10.0.1",
     "firebase": "^12.10.0",
     "i18next": "^25.8.18",

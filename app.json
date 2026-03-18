@@ -22,7 +22,11 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.kamalalshinawi.Ecommerce"
+      "package": "com.kamalalshinawi.Ecommerce",
+      "googleServicesFile": "./google-services.json",
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -42,6 +46,9 @@
         "projectId": "1d710331-b0c1-4507-b036-a73bfb63fc77"
       }
     },
-    "owner": "kamalalshinawi"
+    "owner": "kamalalshinawi",
+    "updates": {
+      "url": "https://u.expo.dev/1d710331-b0c1-4507-b036-a73bfb63fc77"
+    }
   }
 }

@@ -2,6 +2,7 @@ import { StyleSheet, View, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { ReactNode, FC } from "react";
 import { AppColors } from "../../styles/colors";
+import { StatusBar } from "expo-status-bar";
 
 
 interface AppSafeViewProps {
@@ -12,6 +13,7 @@ interface AppSafeViewProps {
 const AppSafeView: FC<AppSafeViewProps> = ({ children, style }) => {
   return (
     <SafeAreaView style={styles.safeView}>
+      <StatusBar style="dark" backgroundColor={AppColors.white} translucent={false} />
       <View style={[styles.container, style]}>{children}</View>
     </SafeAreaView>
   );
