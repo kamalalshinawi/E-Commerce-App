@@ -1,6 +1,6 @@
-# Smart E-Commerce App (React Native + Expo)
+# Smart E-Commerce App (React Native + Expo + Firebase + EAS)
 
-A mobile e-commerce application built with React Native and Expo, featuring Firebase Authentication, Firestore-backed product/order data, Redux Toolkit state management, persisted cart state, and bilingual localization (English/Arabic).
+A mobile e-commerce application built with React Native and Expo, featuring Firebase Authentication, Firestore-backed product/order data, Redux Toolkit state management, persisted cart state, bilingual localization (English/Arabic), and production-ready EAS Build/EAS Update workflows.
 
 ## Overview
 
@@ -25,6 +25,7 @@ The app is designed with reusable UI components and a modular folder structure t
 - `React Navigation` (stack + bottom tabs)
 - `react-hook-form` + `yup` (form validation)
 - `i18next` + `react-i18next` (internationalization)
+- `EAS Build` + `EAS Update` (OTA updates)
 
 ## Core Features
 
@@ -46,6 +47,9 @@ The app is designed with reusable UI components and a modular folder structure t
   - Selected language persisted in `AsyncStorage`
 - **State Persistence**
   - Cart state persisted with `redux-persist`
+- **Release Readiness**
+  - Android internal/production distribution via EAS Build
+  - OTA JS/UI updates via EAS Update channels
 
 ## Project Structure
 
@@ -99,6 +103,9 @@ In Firebase Console:
    - `title` (string)
    - `price` (number)
    - `imageURL` (string)
+4. Download Android config file and place it at project root:
+   - `google-services.json`
+   - referenced from `app.json` (`expo.android.googleServicesFile`)
 
 ### 4) Run the app
 
@@ -112,6 +119,59 @@ Then launch on:
 - iOS: `npm run ios` (macOS only)
 - Web: `npm run web`
 
+## EAS Build & Distribution
+
+This project is configured with EAS build profiles in `eas.json`:
+
+- `development`
+- `preview`
+- `production`
+
+### Build Android APK (internal distribution)
+
+```bash
+npx eas build --platform android --profile preview
+```
+
+### Build production Android artifact
+
+```bash
+npx eas build --platform android --profile production
+```
+
+## EAS Update (OTA)
+
+JavaScript/UI updates can be shipped without creating a new binary when runtime version is compatible.
+
+### Publish OTA update
+
+```bash
+npx eas update --channel preview --platform android --message "your update message"
+```
+
+### Channel strategy
+
+- `preview` channel -> internal testing builds
+- `production` channel -> production builds
+- Optional fallback channels: `default`, `development`
+
+## EAS Environment Variables (Important)
+
+Local `.env` values are not automatically available in cloud builds.  
+You must define `EXPO_PUBLIC_*` Firebase variables in EAS environments:
+
+- `preview`
+- `production`
+- `development`
+
+Verify:
+
+```bash
+npx eas env:list --environment production
+```
+
+If these values are missing, release builds may crash on startup (for example with Firebase `auth/invalid-api-key`).
+
 ## Scripts
 
 - `npm run start` - Start Expo Metro bundler
@@ -124,6 +184,7 @@ Then launch on:
 - Firebase Auth is initialized with React Native persistence via `AsyncStorage`.
 - Cart data is persisted with `redux-persist`.
 - Language preference is persisted through i18n language detector + `AsyncStorage`.
+- Route gating is handled by Firebase `onAuthStateChanged` in app navigation.
 
 ## Architecture Notes
 
@@ -136,6 +197,19 @@ Then launch on:
   - unauthenticated -> `AuthStack`
   - authenticated -> `MainAppBottomTab`
 - Data reads/writes are centralized in `src/config/dataServices.ts` and checkout flow screens.
+- Shared UI primitives live under `src/components` (inputs, buttons, headers, cards, language sheet).
+
+## Troubleshooting
+
+- **App closes immediately in release build**
+  - Confirm EAS environment variables exist for the active build environment.
+  - Validate Firebase keys are correct.
+  - Check device logs:
+    - `adb logcat -b crash -d`
+- **OTA update not reflected**
+  - Ensure installed binary runtime matches current update runtime.
+  - Ensure binary is connected to the expected channel.
+  - Fully close and reopen app (sometimes update applies on next launch).
 
 ## Roadmap Ideas
 
