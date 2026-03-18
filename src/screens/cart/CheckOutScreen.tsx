@@ -35,6 +35,8 @@ interface UserData {
 const CheckOutScreen = () => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
+  const checkoutButtonBottomPadding = insets.bottom + (isAndroid ? vs(4) : vs(8));
+  const checkoutContentBottomPadding = checkoutButtonBottomPadding + vs(54);
   const schema = yup
     .object({
       FullName: yup
@@ -104,7 +106,7 @@ const CheckOutScreen = () => {
         style={{
           paddingHorizontal: SharedPaddingHorizontal,
           flex: 1,
-          paddingBottom: insets.bottom + vs(90),
+          paddingBottom: checkoutContentBottomPadding,
         }}
       >
         <View style={styles.inputsContainer}>
@@ -129,7 +131,7 @@ const CheckOutScreen = () => {
       <View
         style={[
           styles.buttonContainer,
-          { paddingBottom: insets.bottom + (isAndroid ? vs(14) : vs(8)) },
+          { paddingBottom: checkoutButtonBottomPadding },
         ]}
       >
         <AppButton title={t("common.confirm")} onPress={handleSubmit(saveInfo)} />
