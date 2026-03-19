@@ -2,11 +2,13 @@
 
 A mobile e-commerce application built with React Native and Expo, featuring Firebase Authentication, Firestore-backed product/order data, Redux Toolkit state management, persisted cart state, bilingual localization (English/Arabic), and production-ready EAS Build/EAS Update workflows.
 
+[Screencast from 2026-03-19 16-54-25.webm](https://github.com/user-attachments/assets/db0dea7c-7f04-41b7-95b3-1b73d11e03b8)
 
 
 ## Overview
 
-This project demonstrates a complete shopping flow:[Screencast from 2026-03-19 16-54-25.webm](https://github.com/user-attachments/assets/db0dea7c-7f04-41b7-95b3-1b73d11e03b8)
+This project demonstrates a complete shopping flow:
+
 
 
 - User authentication (sign up / sign in / sign out) with Firebase Auth
